@@ -1,0 +1,60 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: domain-process-engine
+  namespace: process-flow-platform-domain
+  labels:
+    service: domain-process-engine
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      service: domain-process-engine
+  template:
+    metadata:
+      labels:
+        service: domain-process-engine
+    spec:
+      containers:
+        - name: domain-process-engine
+          image: microtema/process-flow-domain-process-engine:1.0.0
+          ports:
+            - containerPort: 8080
+          env:
+            - name: SPRING_DATASOURCE_URL
+              value: jdbc:postgresql://postgres-service/processflow
+            - name: SPRING_DATASOURCE_USERNAME
+              value: postgres
+            - name: SPRING_DATASOURCE_USERNAME
+              value: postgres
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: domain-process-engine
+  namespace: process-flow-platform-domain
+spec:
+  selector:
+    service: domain-process-engine
+  ports:
+    - protocol: TCP
+      port: 8080
+      targetPort: 8080
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: domain-process-engine
+  namespace: process-flow-platform-domain
+spec:
+  rules:
+    - host: domain-process-engine.com
+      http:
+        paths:
+          - path: /domain-process-engine
+            pathType: Prefix
+            backend:
+              service:
+                name: backend
+                port:
+                  number: 8080

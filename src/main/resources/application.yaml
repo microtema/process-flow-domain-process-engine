@@ -1,0 +1,32 @@
+server:
+  port: 30091
+  servlet:
+    context-path: /${spring.application.name}
+spring:
+  application:
+    name: domain-process-engine
+  datasource:
+    url: jdbc:postgresql://192.168.64.2:30433/processflow
+    driver-class-name: org.postgresql.Driver
+    username: postgres
+    password: postgres
+  kafka:
+    consumer:
+      group-id: ${spring.application.name}
+      auto-offset-reset: earliest
+    bootstrap-servers: kafka:9092
+  jersey:
+    application-path: engine-rest
+register-process:
+  topic-name: prfl.register-process
+camunda:
+  bpm:
+    database:
+      schema-update: true
+      type: postgres
+    admin-user:
+      id: demo
+      password: demo
+      first-name: demo
+    filter:
+      create: All task
