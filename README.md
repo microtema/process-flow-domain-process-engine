@@ -1,10 +1,10 @@
-## Process-Flow Platform Backend
+## Process-Flow domain-process-engine
 
 # create docker image
-`docker build -t microtema/process-flow-platform-backend:1.0.0 .`
+`docker build -t microtema/process-flow-domain-process-engine:1.0.0 .`
 
 # run docker file
-`docker run --name process-flow-platform-backend -p 8081:8080 microtema/process-flow-platform-backend:1.0.0`
+`docker run --name process-flow-domain-process-engine -p 8081:8080 microtema/process-flow-domain-process-engine:1.0.0`
 
 # push docker file
-`docker push microtema/process-flow-platform-backend:1.0.0`
+`docker push microtema/process-flow-domain-process-engine:1.0.0`
